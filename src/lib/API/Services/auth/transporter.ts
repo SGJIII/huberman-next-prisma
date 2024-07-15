@@ -2,14 +2,20 @@
 
 import nodemailer from 'nodemailer';
 
-const host = process.env.EMAIL_SERVER_HOST || '127.0.0.1';
-const port = process.env.EMAIL_SERVER_PORT || 1025;
+const host = process.env.EMAIL_SERVER_HOST || 'smtp.gmail.com';
+const port = parseInt(process.env.EMAIL_SERVER_PORT, 10) || 587;
+const user = process.env.EMAIL_SERVER_USER;
+const pass = process.env.EMAIL_SERVER_PASSWORD;
 const from = process.env.EMAIL_FROM || 'default@test.com';
 
 const transporter = nodemailer.createTransport({
   host,
   port,
-  from
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user,
+    pass,
+  },
 });
 
 export default transporter;

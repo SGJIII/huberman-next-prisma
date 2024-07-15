@@ -19,7 +19,7 @@
     "@hookform/resolvers": "^3.3.1",
     "@neondatabase/serverless": "^0.6.1",
     "@prisma/adapter-neon": "^5.7.1",
-    "@prisma/client": "^5.7.1",
+    "@prisma/client": "^5.16.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.4",
@@ -79,6 +79,6 @@
     "encoding": "^0.1.13",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "prisma": "^5.7.1"
+    "prisma": "^5.16.2"
   }
 }
