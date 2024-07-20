@@ -1,5 +1,4 @@
 import { neonConfig, Pool, PoolConfig } from '@neondatabase/serverless';
-import { PrismaNeon } from '@prisma/adapter-neon';
 import { PrismaClient, Prisma } from '@prisma/client';
 import ws from 'ws';
 
@@ -30,14 +29,6 @@ if (process.env.NODE_ENV === 'production') {
       },
     },
     log: ['query', 'info', 'warn', 'error'],
-  });
-
-  // Attach the PrismaNeon adapter
-  prisma.$connect().then(() => {
-    prisma.$use(async (params, next) => {
-      const result = await next(params);
-      return result;
-    });
   });
 }
 
