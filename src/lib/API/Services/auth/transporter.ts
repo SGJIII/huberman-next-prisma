@@ -1,5 +1,4 @@
 // Used for local development and e2e testing
-
 import nodemailer from 'nodemailer';
 
 const host = process.env.EMAIL_SERVER_HOST || 'smtp.gmail.com';
@@ -18,4 +17,3 @@ const transporter = nodemailer.createTransport({
 });
 
 export default transporter;
-

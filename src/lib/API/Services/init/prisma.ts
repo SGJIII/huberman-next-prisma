@@ -3,7 +3,7 @@ import { PrismaNeon } from '@prisma/adapter-neon';
 import { PrismaClient, Prisma } from '@prisma/client';
 import ws from 'ws';
 
-//www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
+// www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
 declare global {
   var prisma: PrismaClient | undefined; // eslint-disable-line
 }
@@ -23,8 +23,22 @@ if (process.env.NODE_ENV === 'production') {
 
   // instantiate
   const pool = new Pool(poolConfig);
-  const adapter = new PrismaNeon(pool);
-  prisma = new PrismaClient({ adapter });
+  prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: connectionString,
+      },
+    },
+    log: ['query', 'info', 'warn', 'error'],
+  });
+
+  // Attach the PrismaNeon adapter
+  prisma.$connect().then(() => {
+    prisma.$use(async (params, next) => {
+      const result = await next(params);
+      return result;
+    });
+  });
 }
 
 if (process.env.NODE_ENV === 'test') {
@@ -33,9 +47,9 @@ if (process.env.NODE_ENV === 'test') {
   prisma = new PrismaClient({
     datasources: {
       db: {
-        url
-      }
-    }
+        url,
+      },
+    },
   });
 }
 
