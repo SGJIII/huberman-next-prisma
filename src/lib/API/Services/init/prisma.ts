@@ -1,4 +1,4 @@
-import { neonConfig, Pool, PoolConfig } from '@neondatabase/serverless';
+import { neonConfig } from '@neondatabase/serverless';
 import { PrismaClient, Prisma } from '@prisma/client';
 import ws from 'ws';
 
@@ -18,10 +18,8 @@ if (process.env.NODE_ENV === 'production') {
   // setup
   neonConfig.webSocketConstructor = ws;
   const connectionString = process.env.DATABASE_URL;
-  const poolConfig: PoolConfig = { connectionString };
 
-  // instantiate
-  const pool = new Pool(poolConfig);
+  // instantiate PrismaClient with the connection string directly
   prisma = new PrismaClient({
     datasources: {
       db: {
